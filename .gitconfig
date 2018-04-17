@@ -1,3 +1,68 @@
 [user]
 	name = Jinal Haria
 	email = jinalharia@gmail.com
+[alias]
+	am = commit --amend --no-edit
+	ama = commit --amend --no-edit -a
+	b = branch
+	nb = checkout -b
+	ci = commit
+	cia = commit -a
+	cim = commit -m
+	cima = commit -a -m
+	civ = commit -v
+	civa = commit -v -a
+	co = checkout
+	cp = cherry-pick
+	config-to-push-all-branches = config --add remote.origin.push '+refs/heads/*:refs/heads/*'
+	config-to-push-all-tags = config --add remote.origin.push '+refs/tags/*:refs/tags/*'
+	d = difftool
+	dc = difftool --cached
+	diffc = diff --cached
+	forkup = pull --rebase upstream
+	h = stash
+	hs = stash save
+	last = log -1
+	latest = for-each-ref --sort=committerdate refs/heads/ --format='%(committerdate:short) %(refname:short)'
+	quicklog = log --graph --oneline --decorate -10 --pretty=format:'%C(yellow)%h%C(reset)%C(auto)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'
+	quicklog-long = log --graph --oneline --decorate --pretty=format:'%C(yellow)%h%C(reset)%C(auto)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'
+	r = remote
+	rb = rebase
+	rl = reflog
+	rewind-one = reset --hard HEAD^
+	st = status
+	sta = stash
+	svnci = svn dcommit
+	svnprep = rebase -i git-svn
+	svnup = svn rebase
+	today = diff --stat 'HEAD@{midnight}'
+	tree = log --graph --oneline --all
+	undo = reset --mixed HEAD^
+	unstage = reset HEAD
+	up = pull --rebase origin
+	yesterday = diff --stat 'HEAD@{yesterday}' 'HEAD@{midnight}'
+[core]
+	editor = vim
+[color "branch"]
+	current = yellow reverse
+	local = yellow
+	remote = green
+[color "diff"]
+	meta = yellow bold
+	frag = magenta bold
+	old = red bold
+	new = green bold
+[color "status"]
+	added = yellow
+	changed = green
+	untracked = cyan
+[diff]
+	tool = vimdiff
+[merge]
+	tool = vimdiff
+	conflictstyle = diff3
+[difftool]
+	prompt = false
+[mergetool]
+	prompt = false
+
