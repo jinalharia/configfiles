@@ -3,6 +3,12 @@
 let mapleader = ","
 let maplocalleader = "\\"
 
+" set pathogen settings {{{
+
+call pathogen#infect()
+call pathogen#helptags()
+
+" }}}
 
 " General settings {{{
 
@@ -23,7 +29,8 @@ set history=500		" keep 50 lines of command line history
 set number		" add line numbers
 
 "toggle relative numbers
-nnoremap <leader>N :setlocal relativenumber!<cr>
+"nnoremap <leader>N :setlocal relativenumber!<cr>
+nnoremap <leader>N :exec &nu==&rnu? "se nu!" : "se rnu!"<CR>
 
 set ruler		" show the cursor position all the time
 set autoread		" auto read when file is changed from outside
@@ -59,7 +66,7 @@ vnoremap / /\v
 
 " :W sudo saves the file
 " (useful for handling the permission denied error)
-command W w !sudo tee % > /dev/null
+command! W w !sudo tee % > /dev/null
 
 " <Leader>v = Paste
 noremap <Leader>v "+gP
@@ -172,6 +179,61 @@ nnoremap <leader>ss :setlocal spell!<cr>
 
 " }}}
 
+" Plugin settings {{{
+
+" vim-latex - many latex shortcuts {{{
+set grepprg=grep\ -nH\ $*
+let g:tex_flavor='latex'
+" }}}
+
+" NERDTREE mappings {{{
+
+" Toggle visibility
+nnoremap <leader>n :NERDTreeToggle<CR>
+" Focus on NERDTree
+nnoremap <leader>m :NERDTreeFocus<CR>
+" Focus on NERDTree with the currently opened file
+nnoremap <leader>M :NERDTreeFind<CR>
+
+" Open NERDTree if we're executing vim without specifying a file to open
+autocmd vimenter * if !argc() | NERDTree | endif
+
+" Show hidden files
+let NERDTreeShowFiles=1
+let NERDTreeShowHidden=1
+
+" Quit on opening files from the tree
+let NERDTreeQuitOnOpen=1
+
+" Highlight the selected entry in the tree
+let NERDTreeHighlightCursorline=1
+
+" Use a single click to fold/unfold directories and a double click to open
+" files
+let NERDTreeMouseMode=2
+
+" Dont display these knids of files
+let NERDTreeIgnore=['\.pyc$', '\.pyo$', '\.py\$class$', '^\.git$', '__pycache__']
+
+" }}}
+
+" FuzzyFinder {{{
+
+nnoremap '<Space> :FufBookmarkDir<cr>
+nnoremap '.  :FufFileWithCurrentBufferDir<cr>
+nnoremap ''  :b#<cr>
+nnoremap '/  :FufFile /<cr>
+nnoremap 'f  :FufFile<cr>
+nnoremap 'h  :FufFile $HOME/<cr>
+nnoremap 'j  :FufFile $HOME/.vim/<cr>
+nnoremap 'k  :FufBuffer<cr>
+nnoremap 'l  :FufTag<cr>
+let g:fuf_file_exclude = '\v\~$|\.(DS_Store|o|exe|dll|bak|orig|swp)$|(^|[/\\])\.(hg|git|bzr)($|[/\\])'
+let g:fuf_buffer_keyDelete = '<C-d>'
+
+" }}}
+
+" }}}
 
 "mapping to open .vimrc file and source it
 nnoremap <leader>ev :vsplit $MYVIMRC<cr>
@@ -191,7 +253,3 @@ inoremap OC <nop>
 inoremap OA <nop>
 inoremap OB <nop>
 
-" Plugin settings
-" vim-latex - many latex shortcuts
-set grepprg=grep\ -nH\ $*
-let g:tex_flavor='latex'
