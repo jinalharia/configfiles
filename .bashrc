@@ -8,6 +8,9 @@ case $- in
       *) return;;
 esac
 
+# set editor and then can use Ctrl_x_Ctrl_e to edit a command and execute.
+export EDITOR=VIM
+
 # don't put duplicate lines or lines starting with space in the history.
 # See bash(1) for more options
 HISTCONTROL=ignoreboth
@@ -76,6 +79,7 @@ esac
 if [ -x /usr/bin/dircolors ]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
     alias ls='ls --color=auto'
+    alias myls='ls -C -F -h -l --color=always'
     #alias dir='dir --color=auto'
     #alias vdir='vdir --color=auto'
 
@@ -125,14 +129,40 @@ unset MANPATH  # delete if you already modified MANPATH elsewhere in your config
 export MANPATH="$NPM_PACKAGES/share/man:$(manpath)"
 
 # added by Anaconda3 4.3.0 installer
-export PATH="/home/jinal/Bin/anaconda3/bin:$PATH"
+# export PATH="/home/jinal/Bin/anaconda3/bin:$PATH"  # commented out by conda initialize
 
 # add q to PATH
 export QHOME=~/Bin/q/
-export PATH="$PATH:$QHOME/l32"
+export PATH="$PATH:$QHOME/l64"
 alias q='rlwrap -c -r q'
+
+# add qcon to PATH
+export QCON=~/Bin/qcon2/
+export PATH="$QCON:$PATH"
+alias qcon2='rlwrap bash qcon2.sh'
 
 # Docker aliases
 alias docker-stop-all='docker stop $(docker ps -a -q)'
 alias docker-rm-all='docker rm $(docker ps -a -q)'
+
+up(){ DEEP=$1; for ((i=1; i<=${DEEP:-"1"}; ++i)); do cd ../;done;}
+
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/home/jinal/Bin/miniconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/home/jinal/Bin/miniconda3/etc/profile.d/conda.sh" ]; then
+        . "/home/jinal/Bin/miniconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/home/jinal/Bin/miniconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
+
+# add flutter to PATH
+export PATH="$PATH:~/Bin/flutter/bin"
 

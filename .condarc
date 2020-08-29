@@ -1,2 +1,7 @@
 channels:
+  - conda-forge
   - defaults
+ssl_verify: true
+show_channel_urls: true
+channel_priority: strict
+env_prompt: '({name}) '
